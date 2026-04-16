@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landscape Services, Inc. | Investment Opportunity</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/lucide-static@latest/font/lucide.min.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Lora', 'Georgia', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            primary: '#6E8C43',
+                            secondary: '#C9A443',
+                        },
+                        dark: {
+                            base: '#080C14',
+                            card: 'rgba(255, 255, 255, 0.04)',
+                            border: 'rgba(255, 255, 255, 0.08)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --brand-primary: #6E8C43;
+            --brand-secondary: #C9A443;
+            --brand-primary-rgb: 110, 140, 67;
+            --dark-base: #080C14;
+        }
+
+        body {
+            background-color: var(--dark-base);
+            color: #94A3B8;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(var(--brand-primary-rgb), 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(var(--brand-primary-rgb), 0.1);
+        }
+        
+        .section-title-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--brand-primary), var(--brand-secondary));
+            border-radius: 2px;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 2000px; /* Adjust as needed */
+        }
+        
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg);
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-link.active {
+            color: var(--brand-primary);
+            font-weight: 600;
+        }
+
+        .modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .modal.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+        
+        @media (max-width: 767px) {
+            .modal-content {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                transform: translateY(100%);
+                transition: transform 0.3s ease-out;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+            .modal.active .modal-content {
+                transform: translateY(0);
+            }
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #1e293b;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            font-weight: 400;
+            border: 1px solid var(--brand-primary);
+        }
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--brand-primary) transparent transparent transparent;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-dark-base text-slate-400 antialiased">
+
+    <!-- Header / Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-dark-base/80 backdrop-blur-xl border-b border-dark-border transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-20">
+                <a href="#" class="flex items-center gap-3">
+                    <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#6E8C43" rx="12"/><text x="50" y="55" font-family="Inter, sans-serif" font-size="40" fill="#FFFFFF" text-anchor="middle" font-weight="bold">LSI</text></svg>
+                    <span class="text-white font-semibold text-lg hidden sm:block">Landscape Services, Inc.</span>
+                </a>
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="#overview" class="nav-link text-sm hover:text-brand-primary transition-colors">Overview</a>
+                    <a href="#highlights" class="nav-link text-sm hover:text-brand-primary transition-colors">Highlights</a>
+                    <a href="#market" class="nav-link text-sm hover:text-brand-primary transition-colors">Market</a>
+                    <a href="#services" class="nav-link text-sm hover:text-brand-primary transition-colors">Services</a>
+                    <a href="#advantages" class="nav-link text-sm hover:text-brand-primary transition-colors">Advantages</a>
+                    <a href="#financials" class="nav-link text-sm hover:text-brand-primary transition-colors">Financials</a>
+                    <a href="#end-markets" class="nav-link text-sm hover:text-brand-primary transition-colors">End Markets</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <span class="text-xs uppercase tracking-widest text-slate-600 hidden md:inline">CONFIDENTIAL</span>
+                    <button id="mobile-menu-button" class="lg:hidden text-white p-2">
+                        <i class="lucide lucide-menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden bg-dark-base/95 backdrop-blur-lg border-t border-dark-border">
+            <nav class="flex flex-col p-4 space-y-2">
+                <a href="#overview" class="nav-link block px-4 py-2 rounded-md hover:bg-dark-card">Overview</a>
+                <a href="#highlights" class="nav-link block px-4 py-2 rounded-md hover:bg-dark-card">Highlights</a>
+                <a href="#market" class="nav-link block px-4 py-2 rounded-md hover:bg-dark-card">Market</a>
+                <a href="#services" class="nav-link block px-4 py-2 rounded-md hover:bg-dark-card">Services</a>
+                <a href="#advantages" class="nav-link block px-4 py-2 rounded-md hover:bg-dark-card">Advantages</a>
+                <a href="#financials" class="nav-link block px-4 py-2 rounded-md hover:bg-dark-card">Financials</a>
+                <a href="#end-markets" class="nav-link block px-4 py-2 rounded-md hover:bg-dark-card">End Markets</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
+            <canvas id="hero-canvas" class="absolute top-0 left-0 w-full h-full z-0"></canvas>
+            <div class="absolute inset-0 bg-dark-base" style="background-image: radial-gradient(ellipse at 30% 0%, rgba(110, 140, 67, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 70% 0%, rgba(201, 164, 67, 0.1) 0%, transparent 50%);"></div>
+            <div class="relative z-10 px-6">
+                <div class="max-w-4xl mx-auto">
+                    <div class="animate-in mb-4 flex justify-center">
+                        <div class="flex items-center gap-3 bg-dark-card border border-dark-border px-4 py-2 rounded-full">
+                            <svg width="24" height="24" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#6E8C43" rx="8"/><text x="50" y="55" font-family="Inter, sans-serif" font-size="40" fill="#FFFFFF" text-anchor="middle" font-weight="bold">LSI</text></svg>
+                            <span class="text-white font-semibold">Landscape Services, Inc.</span>
+                        </div>
+                    </div>
+                    <h1 class="animate-in text-4xl md:text-6xl font-serif font-bold text-white mb-4" style="--delay: 0.1s;">
+                        Commercial Grounds Management
+                    </h1>
+                    <p class="animate-in text-lg md:text-xl text-slate-400 mb-8 max-w-2xl mx-auto" style="--delay: 0.2s;">
+                        Nashville, TN | Est. 1988
+                    </p>
+                    <div class="animate-in grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto" style="--delay: 0.3s;">
+                        <div class="glass-card p-4 text-center tooltip" onclick="showModal('Est. Revenue', 'Based on 139 employees multiplied by an industry benchmark of $134K revenue per employee.')">
+                            <h3 class="text-2xl md:text-3xl font-bold gradient-text" data-count="18.6" data-prefix="~$" data-suffix="M">~$0M</h3>
+                            <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">Est. Revenue</p>
+                            <span class="tooltip-text">Detail: 139 emp x $134K</span>
+                        </div>
+                        <div class="glass-card p-4 text-center tooltip" onclick="showModal('Year Founded', 'The company has been operating for over three decades, establishing a long-standing brand and deep client relationships.')">
+                            <h3 class="text-2xl md:text-3xl font-bold gradient-text" data-count="1988">0</h3>
+                            <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">Year Founded</p>
+                            <span class="tooltip-text">Detail: 37+ yrs operating</span>
+                        </div>
+                        <div class="glass-card p-4 text-center tooltip" onclick="showModal('Employees', 'Headcount based on LinkedIn data as of 2025.')">
+                            <h3 class="text-2xl md:text-3xl font-bold gradient-text" data-count="139">0</h3>
+                            <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">Employees</p>
+                            <span class="tooltip-text">Detail: LinkedIn, 2025</span>
+                        </div>
+                        <div class="glass-card p-4 text-center tooltip" onclick="showModal('Geography', 'LSI operates 3 offices across Tennessee with regional reach throughout the Southeastern U.S.')">
+                            <h3 class="text-2xl md:text-3xl font-bold gradient-text">SE U.S.</h3>
+                            <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">Geography</p>
+                            <span class="tooltip-text">Detail: Nashville, TN HQ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Overview Section -->
+        <section id="overview" class="scroll-mt-20 py-20 md:py-32 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="accordion-item active">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white font-serif section-title-underline">Company Overview</h2>
+                        <i class="lucide lucide-plus text-brand-primary text-3xl accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="grid lg:grid-cols-5 gap-12 items-center">
+                            <div class="lg:col-span-3">
+                                <p class="text-lg text-slate-300 mb-8">
+                                    Nashville, TN Commercial Grounds Management Firm specializing in recurring maintenance contracts and project-based landscape construction.
+                                </p>
+                                <div class="space-y-4">
+                                    <div class="flex items-start gap-4">
+                                        <i class="lucide lucide-check-circle text-brand-primary mt-1 flex-shrink-0"></i>
+                                        <p>Second-generation, family-operated commercial grounds management firm exclusively serving commercial and institutional clients since 1988.</p>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <i class="lucide lucide-check-circle text-brand-primary mt-1 flex-shrink-0"></i>
+                                        <p>Operates 3 offices across Tennessee with regional reach throughout the Southeastern U.S.</p>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <i class="lucide lucide-check-circle text-brand-primary mt-1 flex-shrink-0"></i>
+                                        <p>Delivers a dual revenue stream of recurring maintenance contracts and project-based landscape construction.</p>
+                                    </div>
+                                    <div class="flex items-start gap-4">
+                                        <i class="lucide lucide-check-circle text-brand-primary mt-1 flex-shrink-0"></i>
+                                        <p>Employs a team of 139 professionals dedicated to high-quality service and client satisfaction.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lg:col-span-2 space-y-6">
+                                <div class="glass-card p-6 cursor-pointer" onclick="showModal('NALP Award Winner', 'Landscape Services, Inc. has been recognized by the National Association of Landscape Professionals (NALP) for its excellence in the industry.')">
+                                    <div class="flex items-center gap-4">
+                                        <div class="bg-brand-primary/10 text-brand-primary p-3 rounded-lg">
+                                            <i class="lucide lucide-award"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-white">NALP Award Winner</h3>
+                                            <p class="text-sm">Recognized for industry excellence.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investment Highlights -->
+        <section id="highlights" class="scroll-mt-20 py-20 md:py-32 px-6 bg-dark-base/50" style="background-image: radial-gradient(circle at top left, rgba(110, 140, 67, 0.05), transparent 30%)">
+            <div class="max-w-7xl mx-auto">
+                <div class="accordion-item active">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white font-serif section-title-underline">Investment Highlights</h2>
+                        <i class="lucide lucide-plus text-brand-primary text-3xl accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="glass-card p-6 cursor-pointer" onclick="showModal('Contractual, Recurring Revenue Base', 'Landscape maintenance is a non-discretionary expense for Commercial Real Estate (CRE) owners, leading to a stable, contractual, and recurring revenue base for LSI.')">
+                                <i class="lucide lucide-repeat text-brand-primary text-3xl mb-4"></i>
+                                <h3 class="font-semibold text-white text-lg mb-2">Contractual, Recurring Revenue Base</h3>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li>Landscape maintenance is non-discretionary for CRE owners.</li>
+                                    <li>Contractual, recurring revenue base.</li>
+                                </ul>
+                            </div>
+                            <div class="glass-card p-6 cursor-pointer" onclick="showModal('Attractive Roll-Up Opportunity', 'The landscaping market is highly fragmented, with the top 4 companies holding only 9.4% of the $167B market. LSI presents an ideal platform in the Southeast for a buy-and-build strategy.')">
+                                <i class="lucide lucide-merge text-brand-primary text-3xl mb-4"></i>
+                                <h3 class="font-semibold text-white text-lg mb-2">Attractive Roll-Up Opportunity in a Fragmented Market</h3>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li>Top 4 hold only <span class="font-bold text-white">9.4%</span> of a <span class="font-bold text-white">$167B</span> market.</li>
+                                    <li>LSI provides an ideal SE platform for buy-and-build.</li>
+                                </ul>
+                            </div>
+                            <div class="glass-card p-6 cursor-pointer" onclick="showModal('Long-Standing Brand', 'With 37 years of operation, LSI has built a strong brand and deep client relationships across 24 verticals. A \'Raving Fans\' culture drives high retention and referrals.')">
+                                <i class="lucide lucide-shield-check text-brand-primary text-3xl mb-4"></i>
+                                <h3 class="font-semibold text-white text-lg mb-2">Long-Standing Brand with Deep Client Relationships</h3>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li><span class="font-bold text-white">37-Year</span> Brand & Relationships.</li>
+                                    <li>Deep client relationships across 24 verticals.</li>
+                                    <li>'Raving Fans' culture drives retention & referrals.</li>
+                                </ul>
+                            </div>
+                            <div class="glass-card p-6 cursor-pointer" onclick="showModal('Diversified Revenue Streams', 'LSI combines predictable, recurring grounds maintenance revenue with the growth potential of landscape construction projects, creating a balanced and resilient business model.')">
+                                <i class="lucide lucide-git-fork text-brand-primary text-3xl mb-4"></i>
+                                <h3 class="font-semibold text-white text-lg mb-2">Diversified and Complementary Revenue Streams</h3>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li>Recurring grounds maintenance + landscape construction.</li>
+                                    <li>Predictable + growth in one platform.</li>
+                                </ul>
+                            </div>
+                            <div class="glass-card p-6 cursor-pointer" onclick="showModal('Alignment with ESG Mandates', 'LSI\'s services, including water management, green initiatives, and native planting, are strongly aligned with the growing Environmental, Social, and Governance (ESG) mandates required by CRE tenants.')">
+                                <i class="lucide lucide-leaf text-brand-primary text-3xl mb-4"></i>
+                                <h3 class="font-semibold text-white text-lg mb-2">Strong Alignment with Growing ESG Mandates</h3>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li>Water management, green initiatives, native planting aligned with CRE tenant ESG mandates.</li>
+                                </ul>
+                            </div>
+                            <div class="glass-card p-6 cursor-pointer" onclick="showModal('Scalable M&A Platform', 'LSI has established systems, including a client portal, defined processes, and a multi-office model, making it ready for the seamless integration of bolt-on acquisitions.')">
+                                <i class="lucide lucide-scaling text-brand-primary text-3xl mb-4"></i>
+                                <h3 class="font-semibold text-white text-lg mb-2">Scalable Platform Primed for M&A Integration</h3>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li>Client portal, established processes, multi-office model ready for bolt-on M&A integration.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Opportunity -->
+        <section id="market" class="scroll-mt-20 py-20 md:py-32 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="accordion-item active">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white font-serif section-title-underline">Market Opportunity</h2>
+                        <i class="lucide lucide-plus text-brand-primary text-3xl accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="grid lg:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <p class="text-lg text-slate-300 mb-8">
+                                    The U.S. Landscaping Services Market (NAICS 561730) is a large, fragmented, and growing industry, presenting a significant opportunity for consolidation and expansion.
+                                </p>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div class="glass-card p-4 text-center cursor-pointer" onclick="showModal('U.S. Industry Revenue (2024)', 'Source: Kentley Insights, RealGreen, U.S. Census Bureau')">
+                                        <h3 class="text-2xl font-bold gradient-text">$167.4B</h3>
+                                        <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">Industry Revenue</p>
+                                    </div>
+                                    <div class="glass-card p-4 text-center cursor-pointer" onclick="showModal('5-Year Revenue CAGR (2019-2024)', 'Source: Kentley Insights, RealGreen, U.S. Census Bureau')">
+                                        <h3 class="text-2xl font-bold gradient-text">7.1%</h3>
+                                        <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">5-Year CAGR</p>
+                                    </div>
+                                    <div class="glass-card p-4 text-center cursor-pointer" onclick="showModal('Active U.S. Companies', 'Source: Kentley Insights, RealGreen, U.S. Census Bureau')">
+                                        <h3 class="text-2xl font-bold gradient-text">150K+</h3>
+                                        <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">U.S. Companies</p>
+                                    </div>
+                                    <div class="glass-card p-4 text-center cursor-pointer" onclick="showModal('Industry Employees', 'Source: Kentley Insights, RealGreen, U.S. Census Bureau')">
+                                        <h3 class="text-2xl font-bold gradient-text">1M+</h3>
+                                        <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">Industry Employees</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="glass-card p-6">
+                                <h3 class="text-lg font-semibold text-white text-center mb-4">Market Segmentation by Service</h3>
+                                <canvas id="marketChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="scroll-mt-20 py-20 md:py-32 px-6 bg-dark-base/50" style="background-image: radial-gradient(circle at top right, rgba(201, 164, 67, 0.05), transparent 30%)">
+            <div class="max-w-7xl mx-auto">
+                <div class="accordion-item active">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white font-serif section-title-underline">Core Services</h2>
+                        <i class="lucide lucide-plus text-brand-primary text-3xl accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="glass-card p-8 cursor-pointer" onclick="showModal('Grounds Services', 'Recurring maintenance contracts including landscape management & mowing, tree care & arborist services, seasonal color programs, and irrigation & water management.')">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="bg-brand-primary/10 text-brand-primary p-4 rounded-xl">
+                                        <i class="lucide lucide-sprout text-3xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-semibold text-white font-serif">Grounds Services</h3>
+                                </div>
+                                <p>Recurring maintenance contracts including landscape management & mowing, tree care & arborist services, seasonal color programs, and irrigation & water management.</p>
+                            </div>
+                            <div class="glass-card p-8 cursor-pointer" onclick="showModal('Landscape Construction', 'Project-based revenue including landscape development, hardscape construction, irrigation installation, and drainage & erosion control.')">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="bg-brand-secondary/10 text-brand-secondary p-4 rounded-xl">
+                                        <i class="lucide lucide-hard-hat text-3xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-semibold text-white font-serif">Landscape Construction</h3>
+                                </div>
+                                <p>Project-based revenue including landscape development, hardscape construction, irrigation installation, and drainage & erosion control.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Competitive Advantages -->
+        <section id="advantages" class="scroll-mt-20 py-20 md:py-32 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="accordion-item active">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white font-serif section-title-underline">Competitive Advantages</h2>
+                        <i class="lucide lucide-plus text-brand-primary text-3xl accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="glass-card p-6 text-center cursor-pointer" onclick="showModal('Service Guarantee', 'LSI stands behind its work with a powerful guarantee: \'We\'ll do as We Say, or You Don\'t Pay.®\' This commitment builds trust and ensures client satisfaction.')">
+                                <i class="lucide lucide-shield-check text-brand-secondary text-4xl mx-auto mb-4"></i>
+                                <h3 class="font-semibold text-white text-lg mb-2">Service Guarantee</h3>
+                                <p class="text-sm">"We'll do as We Say, or You Don't Pay.®"</p>
+                            </div>
+                            <div class="glass-card p-6 text-center cursor-pointer" onclick="showModal('100% Commercial Clientele', 'LSI maintains an exclusive focus on commercial and institutional clients. This specialization allows for tailored services, deep understanding of client needs, and operational efficiencies.')">
+                                <i class="lucide lucide-building-2 text-brand-secondary text-4xl mx-auto mb-4"></i>
+                                <h3 class="font-semibold text-white text-lg mb-2">100% Commercial Clientele</h3>
+                                <p class="text-sm">Exclusive focus on commercial and institutional clients.</p>
+                            </div>
+                            <div class="glass-card p-6 text-center cursor-pointer" onclick="showModal('Dual Revenue Streams', 'The business model combines the stability of predictable, recurring maintenance contracts with the high-growth potential of project-based construction work, creating a resilient and scalable platform.')">
+                                <i class="lucide lucide-git-compare text-brand-secondary text-4xl mx-auto mb-4"></i>
+                                <h3 class="font-semibold text-white text-lg mb-2">Dual Revenue Streams</h3>
+                                <p class="text-sm">Combines predictable recurring maintenance with high-growth project work.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financials Section -->
+        <section id="financials" class="scroll-mt-20 py-20 md:py-32 px-6 bg-dark-base/50" style="background-image: radial-gradient(circle at bottom left, rgba(110, 140, 67, 0.05), transparent 30%)">
+            <div class="max-w-7xl mx-auto">
+                <div class="accordion-item active">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white font-serif section-title-underline">Financial Snapshot</h2>
+                        <i class="lucide lucide-plus text-brand-primary text-3xl accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                            <div class="glass-card p-6">
+                                <h3 class="text-lg font-semibold text-white text-center mb-4">Historical & Projected Revenue ($M)</h3>
+                                <canvas id="revenueBarChart"></canvas>
+                            </div>
+                            <div class="glass-card p-6">
+                                <h3 class="text-lg font-semibold text-white text-center mb-4">Recurring Revenue Growth</h3>
+                                <canvas id="growthLineChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="mt-12">
+                            <h3 class="text-xl font-semibold text-white mb-4">LSI Revenue Estimate — Employee-Based Methodology</h3>
+                            <div class="glass-card overflow-hidden">
+                                <table class="w-full text-left text-sm">
+                                    <thead class="bg-white/5">
+                                        <tr>
+                                            <th class="p-4 font-semibold text-white">Metric</th>
+                                            <th class="p-4 font-semibold text-white">Input / Source</th>
+                                            <th class="p-4 font-semibold text-white text-right">Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-t border-dark-border hover:bg-white/5 transition-colors cursor-pointer" onclick="showModal('Headcount', 'Source: LinkedIn profile (2025)')">
+                                            <td class="p-4">Headcount</td>
+                                            <td class="p-4">LinkedIn profile (2025)</td>
+                                            <td class="p-4 text-right">139 employees</td>
+                                        </tr>
+                                        <tr class="border-t border-dark-border hover:bg-white/5 transition-colors cursor-pointer" onclick="showModal('Revenue / Employee', 'Source: NAICS 561730 - YKS source')">
+                                            <td class="p-4">Revenue / Employee</td>
+                                            <td class="p-4">NAICS 561730 - YKS source</td>
+                                            <td class="p-4 text-right">$134,000</td>
+                                        </tr>
+                                        <tr class="border-t border-dark-border hover:bg-white/5 transition-colors cursor-pointer" onclick="showModal('Implied Revenue', 'Calculation: 139 employees x $134,000 per employee')">
+                                            <td class="p-4">Implied Revenue</td>
+                                            <td class="p-4">139 x $134,000</td>
+                                            <td class="p-4 text-right font-semibold text-white">$18,626,000</td>
+                                        </tr>
+                                        <tr class="border-t border-dark-border hover:bg-white/5 transition-colors cursor-pointer" onclick="showModal('Estimated Revenue', 'Source: Rounded — YKS estimate')">
+                                            <td class="p-4 font-bold text-white">Estimated Revenue</td>
+                                            <td class="p-4">Rounded — YKS estimate</td>
+                                            <td class="p-4 text-right font-bold text-white">~$18.6M</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="text-xs mt-4 text-slate-500">Note: Industry benchmark (Kentley Insights, 2024): $164K/emp. YKS applies $134K source rate. Estimates are indicative only — not audited financials.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- End Markets Section -->
+        <section id="end-markets" class="scroll-mt-20 py-20 md:py-32 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="accordion-item active">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white font-serif section-title-underline">24 Commercial End Markets</h2>
+                        <i class="lucide lucide-plus text-brand-primary text-3xl accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="columns-2 md:columns-3 lg:columns-4 gap-4">
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Commercial Offices', 'Serving office parks and corporate buildings.')">Commercial Offices</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Homeowners Assoc.', 'Managing grounds for HOAs.')">Homeowners Assoc.</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Multifamily / Condo', 'Apartment complexes and condominiums.')">Multifamily / Condo</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Healthcare Systems', 'Hospitals and medical facilities.')">Healthcare Systems</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Retail Centers', 'Shopping malls and retail plazas.')">Retail Centers</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Corporate Campuses', 'Large-scale corporate headquarters.')">Corporate Campuses</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Industrial / Distrib.', 'Warehouses and distribution centers.')">Industrial / Distrib.</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Higher Education', 'Colleges and universities.')">Higher Education</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('School Systems', 'Public and private K-12 schools.')">School Systems</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Municipalities', 'City parks and government buildings.')">Municipalities</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Military Bases', 'Grounds management for military installations.')">Military Bases</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Bank Portfolios', 'Branch locations for banking institutions.')">Bank Portfolios</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Big Box Chains', 'Large retail chain stores.')">Big Box Chains</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Senior Living', 'Assisted living and retirement communities.')">Senior Living</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Storage Facilities', 'Self-storage property grounds.')">Storage Facilities</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('C-Store / Fuel', 'Convenience stores and gas stations.')">C-Store / Fuel</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('REITS', 'Properties managed by Real Estate Investment Trusts.')">REITS</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Building Owners', 'Direct contracts with property owners.')">Building Owners</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Property Managers', 'Working with third-party property management firms.')">Property Managers</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Facility Managers', 'Contracts with in-house facility management teams.')">Facility Managers</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('General Contractors', 'New construction landscaping projects.')">General Contractors</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Developers', 'Working with real estate developers.')">Developers</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Landscape Architects', 'Executing designs from landscape architecture firms.')">Landscape Architects</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Restaurant & Hospitality', 'Hotels, resorts, and restaurants.')">Restaurant & Hospitality</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Associations Section -->
+        <section id="associations" class="scroll-mt-20 py-20 md:py-32 px-6 bg-dark-base/50">
+            <div class="max-w-7xl mx-auto">
+                <div class="accordion-item active">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white font-serif section-title-underline">Industry Associations</h2>
+                        <i class="lucide lucide-plus text-brand-primary text-3xl accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-4">
+                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('BOMA', 'Building Owners and Managers Association')">BOMA</span>
+                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('NAIOP', 'National Association for Industrial and Office Parks')">NAIOP</span>
+                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('IFMA', 'International Facility Management Association')">IFMA</span>
+                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('IREM', 'Institute of Real Estate Management')">IREM</span>
+                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('NALP', 'National Association of Landscape Professionals')">NALP</span>
+                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('SIMA', 'Snow & Ice Management Association')">SIMA</span>
+                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('CAI', 'Community Associations Institute')">CAI</span>
+                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('Irrigation Association', 'Irrigation Association')">Irrigation Association</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-base border-t border-dark-border py-12 px-6">
+        <div class="max-w-7xl mx-auto text-center text-slate-500">
+            <div class="flex justify-center items-center gap-3 mb-4">
+                <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#6E8C43" rx="12"/><text x="50" y="55" font-family="Inter, sans-serif" font-size="40" fill="#FFFFFF" text-anchor="middle" font-weight="bold">LSI</text></svg>
+                <h3 class="text-xl font-semibold text-white">Landscape Services, Inc.</h3>
+            </div>
+            <p class="mb-6">HQ: 204 River Hills Drive, Nashville TN</p>
+            <p class="text-xs uppercase tracking-widest">STRICTLY CONFIDENTIAL | FOR DISCUSSION PURPOSES ONLY</p>
+            <p class="text-xs mt-2">Prepared by Yajur Knowledge Solutions</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div id="modal-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm"></div>
+        <div id="modal-content" class="modal-content relative z-10 w-full max-w-lg glass-card p-8">
+            <button id="modal-close" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+                <i class="lucide lucide-x"></i>
+            </button>
+            <h3 id="modal-title" class="text-xl font-bold text-white mb-4"></h3>
+            <div id="modal-body" class="text-slate-300"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+            Chart.register(ChartDataLabels);
+
+            // --- CHART.JS DARK THEME DEFAULTS ---
+            Chart.defaults.color = '#94a3b8';
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.plugins.legend.position = 'bottom';
+            Chart.defaults.plugins.tooltip.backgroundColor = '#1e293b';
+            Chart.defaults.plugins.tooltip.titleColor = '#ffffff';
+            Chart.defaults.plugins.tooltip.bodyColor = '#cbd5e1';
+            Chart.defaults.plugins.tooltip.padding = 10;
+            Chart.defaults.plugins.tooltip.cornerRadius = 4;
+            Chart.defaults.plugins.datalabels.color = '#ffffff';
+            Chart.defaults.plugins.datalabels.font = { weight: 'bold' };
+            Chart.defaults.plugins.datalabels.formatter = (value, context) => {
+                if (context.chart.config.type === 'doughnut') {
+                    return value + '%';
+                }
+                if (context.dataset.label.toLowerCase().includes('revenue')) {
+                    return '$' + value.toFixed(1) + 'M';
+                }
+                return value;
+            };
+
+            // --- HERO CANVAS ANIMATION ---
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const particleCount = 40;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.speedY = Math.random() * 1 + 0.5;
+                    this.color = Math.random() > 0.5 ? 'rgba(110, 140, 67, 0.3)' : 'rgba(201, 164, 67, 0.2)';
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.y > canvas.height) {
+                        this.y = -this.size;
+                        this.x = Math.random() * canvas.width;
+                    }
+                }
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            initParticles();
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            // --- SCROLL ANIMATIONS ---
+            const animateInElements = document.querySelectorAll('.animate-in');
+            animateInElements.forEach(el => {
+                gsap.from(el, {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 90%',
+                    },
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.6,
+                    delay: el.style.getPropertyValue('--delay') || 0,
+                    ease: 'power2.out'
+                });
+            });
+            
+            gsap.utils.toArray("section").forEach(section => {
+                const elems = section.querySelectorAll(".glass-card, table, .columns-2 > div, .flex-wrap > span, canvas");
+                if (elems.length > 0) {
+                    gsap.from(elems, {
+                        y: 50,
+                        opacity: 0,
+                        duration: 0.8,
+                        ease: "power3.out",
+                        stagger: 0.1,
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top 80%",
+                        }
+                    });
+                }
+            });
+
+            // --- NUMBER COUNTERS ---
+            const counters = document.querySelectorAll('[data-count]');
+            counters.forEach(counter => {
+                const endValue = parseFloat(counter.getAttribute('data-count'));
+                const prefix = counter.getAttribute('data-prefix') || '';
+                const suffix = counter.getAttribute('data-suffix') || '';
+                const decimals = (endValue % 1 !== 0) ? 1 : 0;
+
+                let obj = { val: 0 };
+                gsap.to(obj, {
+                    val: endValue,
+                    duration: 2,
+                    scrollTrigger: {
+                        trigger: counter,
+                        start: 'top 90%'
+                    },
+                    onUpdate: () => {
+                        counter.innerText = prefix + obj.val.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+                    }
+                });
+            });
+
+            // --- CHARTS ---
+            const createCharts = () => {
+                // Market Doughnut Chart
+                const marketCtx = document.getElementById('marketChart');
+                if (marketCtx) {
+                    new Chart(marketCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Maintenance', 'Construction', 'Lawn Care', 'Irrigation', 'Other'],
+                            datasets: [{
+                                label: 'Market Share',
+                                data: [45, 25, 15, 10, 5],
+                                backgroundColor: ['#6E8C43', '#C9A443', '#8aab61', '#e0c277', '#566e34'],
+                                borderColor: '#080C14',
+                                borderWidth: 3,
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                },
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'start',
+                                    offset: -20,
+                                    borderColor: 'white',
+                                    borderWidth: 2,
+                                    borderRadius: 4,
+                                    backgroundColor: (context) => context.dataset.backgroundColor,
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Revenue Bar Chart
+                const revenueCtx = document.getElementById('revenueBarChart');
+                if (revenueCtx) {
+                    new Chart(revenueCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['2022A', '2023A', '2024E', '2025P', '2026P'],
+                            datasets: [{
+                                label: 'Total Revenue',
+                                data: [14.2, 16.8, 18.6, 21.5, 24.0],
+                                backgroundColor: '#6E8C43',
+                                borderColor: '#8aab61',
+                                borderWidth: 1
+                            }, {
+                                label: 'Recurring Revenue',
+                                data: [9.9, 11.8, 13.0, 15.1, 16.8],
+                                backgroundColor: '#C9A443',
+                                borderColor: '#e0c277',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                    ticks: { callback: value => '$' + value + 'M' }
+                                },
+                                x: { grid: { display: false } }
+                            },
+                            plugins: {
+                                datalabels: {
+                                    anchor: 'end',
+                                    align: 'top',
+                                    offset: -2
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Growth Line Chart
+                const growthCtx = document.getElementById('growthLineChart');
+                if (growthCtx) {
+                    new Chart(growthCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['2020', '2021', '2022', '2023', '2024E'],
+                            datasets: [{
+                                label: 'Recurring Revenue ($M)',
+                                data: [7.5, 8.9, 9.9, 11.8, 13.0],
+                                fill: true,
+                                backgroundColor: 'rgba(110, 140, 67, 0.2)',
+                                borderColor: '#6E8C43',
+                                tension: 0.4,
+                                pointBackgroundColor: '#6E8C43',
+                                pointRadius: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: false,
+                                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                    ticks: { callback: value => '$' + value + 'M' }
+                                },
+                                x: { grid: { display: false } }
+                            },
+                            plugins: {
+                                datalabels: {
+                                    display: false // Often too cluttered on line charts
+                                }
+                            }
+                        }
+                    });
+                }
+            };
+            createCharts();
+
+            // --- ACCORDION ---
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                header.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+
+            // --- NAVIGATION ---
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('shadow-lg');
+                } else {
+                    header.classList.remove('shadow-lg');
+                }
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // --- SCROLLSPY ---
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // --- MODAL ---
+            const modal = document.getElementById('modal');
+            const modalBackdrop = document.getElementById('modal-backdrop');
+            const modalClose = document.getElementById('modal-close');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+
+            window.showModal = (title, content) => {
+                modalTitle.textContent = title;
+                modalBody.innerHTML = content;
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.add('active'), 10);
+            }
+
+            const closeModal = () => {
+                modal.classList.remove('active');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+
+            modalBackdrop.addEventListener('click', closeModal);
+            modalClose.addEventListener('click', closeModal);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+
+
+<!-- Yajur Analytics Tracking -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  var SB_URL='https://eflvzsfgoelonfclzrjy.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmbHZ6c2Znb2Vsb25mY2x6cmp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2NTYxOTAsImV4cCI6MjA2MzIzMjE5MH0.LCxuFDJuBO8ggiqdWpv5uoOkplKWbcF8z5E_kdpOEWU',PID='2948c275-9e6c-4dac-8adb-f4d5a17ba734';
+  var sb=null,sid=null,start=Date.now(),maxScroll=0,visitId=null,flushed=false;
+  var milestones=new Set(),sectionTimers={};
+  try{
+    if(window.supabase){
+      sb=window.supabase.createClient(SB_URL,SB_KEY);
+      sid=crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0;return(c==='x'?r:(r&0x3|0x8)).toString(16)});
+      var up=new URLSearchParams(window.location.search);
+      function devType(){var w=window.innerWidth;return w<768?'mobile':w<1024?'tablet':'desktop'}
+      (async function(){
+        var d=await sb.from('page_visits').insert({project_id:PID,session_id:sid,referrer:document.referrer||null,user_agent:navigator.userAgent,device_type:devType(),screen_width:screen.width,screen_height:screen.height,utm_source:up.get('utm_source'),utm_medium:up.get('utm_medium'),utm_campaign:up.get('utm_campaign')}).select('id').single();
+        if(d.data)visitId=d.data.id;
+      })();
+      trk('page_view',location.pathname,{referrer:document.referrer});
+    }
+  }catch(e){console.warn('Analytics init:',e)}
+
+  function trk(type,target,data,section){
+    if(!sb)return;
+    sb.from('page_events').insert({project_id:PID,session_id:sid,event_type:type,event_target:target||null,event_data:data||{},section_id:section||null}).then(function(){});
+  }
+
+  // Scroll depth
+  var st=null;
+  window.addEventListener('scroll',function(){
+    if(st)return;
+    st=setTimeout(function(){
+      st=null;
+      var top=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;
+      if(h<=0)return;
+      var pct=Math.round(top/h*100);
+      if(pct>maxScroll)maxScroll=pct;
+      [25,50,75,90,100].forEach(function(m){if(pct>=m&&!milestones.has(m)){milestones.add(m);trk('scroll_milestone',m+'%',{percent:m})}});
+    },250);
+  });
+
+  // Section time tracking
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var id=e.target.id||'unknown';
+      if(!sectionTimers[id])sectionTimers[id]={enter:null,total:0};
+      if(e.isIntersecting){sectionTimers[id].enter=Date.now()}
+      else if(sectionTimers[id].enter){sectionTimers[id].total+=Date.now()-sectionTimers[id].enter;sectionTimers[id].enter=null}
+    });
+  },{threshold:0.3});
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('section[id],div[id]').forEach(function(el){if(el.id)obs.observe(el)});
+    var first=document.querySelector('section');
+    if(first&&!first.id){first.id='hero';obs.observe(first)}
+  });
+
+  // Click tracking
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('a,button,[onclick]');
+    if(!el)return;
+    var sec=el.closest('section[id],div[id]');
+    trk('link_click',el.textContent.trim().substring(0,80),{href:el.href||'',tag:el.tagName},sec?sec.id:null);
+  });
+
+  // Flush on exit
+  function flush(){
+    if(flushed||!sb)return;flushed=true;
+    Object.keys(sectionTimers).forEach(function(id){
+      if(sectionTimers[id].enter){sectionTimers[id].total+=Date.now()-sectionTimers[id].enter;sectionTimers[id].enter=null}
+    });
+    Object.entries(sectionTimers).forEach(function(e){
+      if(e[1].total>500)trk('section_view',e[0],{duration_ms:e[1].total,duration_seconds:Math.round(e[1].total/1000)},e[0]);
+    });
+    if(visitId){
+      var dur=Math.round((Date.now()-start)/1000);
+      fetch(SB_URL+'/rest/v1/page_visits?id=eq.'+visitId,{method:'PATCH',headers:{'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Prefer':'return=minimal'},body:JSON.stringify({duration_seconds:dur,max_scroll_percent:maxScroll}),keepalive:true}).catch(function(){});
+    }
+  }
+  window.addEventListener('beforeunload',flush);
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')flush()});
+})();
+</script>
+</body>
+</html>
