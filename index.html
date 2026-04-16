@@ -89,13 +89,13 @@
         }
 
         .accordion-content {
-            max-height: 0;
+            max-height: 2000px; /* Default to open */
             overflow: hidden;
             transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .accordion-item.active .accordion-content {
-            max-height: 2000px; /* Adjust as needed */
+        .accordion-item:not(.active) .accordion-content {
+            max-height: 0;
         }
         
         .accordion-item.active .accordion-icon {
