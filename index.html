@@ -27,9 +27,9 @@
                             secondary: '#C9A443',
                         },
                         dark: {
-                            base: '#080C14',
-                            card: 'rgba(255, 255, 255, 0.04)',
-                            border: 'rgba(255, 255, 255, 0.08)',
+                            base: '#0F1419',
+                            card: 'rgba(255, 255, 255, 0.08)',
+                            border: 'rgba(255, 255, 255, 0.15)',
                         }
                     }
                 }
@@ -42,12 +42,12 @@
             --brand-primary: #6E8C43;
             --brand-secondary: #C9A443;
             --brand-primary-rgb: 110, 140, 67;
-            --dark-base: #080C14;
+            --dark-base: #0F1419;
         }
 
         body {
             background-color: var(--dark-base);
-            color: #94A3B8;
+            color: #CBD5E1;
             font-family: 'Inter', sans-serif;
         }
 
@@ -60,17 +60,17 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .glass-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(var(--brand-primary-rgb), 0.3);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(var(--brand-primary-rgb), 0.1);
+            border-color: rgba(var(--brand-primary-rgb), 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(var(--brand-primary-rgb), 0.15);
         }
         
         .section-title-underline {
@@ -178,10 +178,10 @@
         }
     </style>
 </head>
-<body class="bg-dark-base text-slate-400 antialiased">
+<body class="bg-dark-base text-slate-300 antialiased">
 
     <!-- Header / Navigation -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-dark-base/80 backdrop-blur-xl border-b border-dark-border transition-all duration-300">
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-dark-base/90 backdrop-blur-xl border-b border-dark-border transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-center h-20">
                 <a href="#" class="flex items-center gap-3">
@@ -198,7 +198,7 @@
                     <a href="#end-markets" class="nav-link text-sm hover:text-brand-primary transition-colors">End Markets</a>
                 </nav>
                 <div class="flex items-center gap-4">
-                    <span class="text-xs uppercase tracking-widest text-slate-600 hidden md:inline">CONFIDENTIAL</span>
+                    <span class="text-xs uppercase tracking-widest text-slate-500 hidden md:inline">CONFIDENTIAL</span>
                     <button id="mobile-menu-button" class="lg:hidden text-white p-2">
                         <i class="lucide lucide-menu"></i>
                     </button>
@@ -223,7 +223,7 @@
         <!-- Hero Section -->
         <section id="hero" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
             <canvas id="hero-canvas" class="absolute top-0 left-0 w-full h-full z-0"></canvas>
-            <div class="absolute inset-0 bg-dark-base" style="background-image: radial-gradient(ellipse at 30% 0%, rgba(110, 140, 67, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 70% 0%, rgba(201, 164, 67, 0.1) 0%, transparent 50%);"></div>
+            <div class="absolute inset-0 bg-dark-base" style="background-image: radial-gradient(ellipse at 30% 0%, rgba(110, 140, 67, 0.2) 0%, transparent 50%), radial-gradient(ellipse at 70% 0%, rgba(201, 164, 67, 0.15) 0%, transparent 50%);"></div>
             <div class="relative z-10 px-6">
                 <div class="max-w-4xl mx-auto">
                     <div class="animate-in mb-4 flex justify-center">
@@ -235,28 +235,28 @@
                     <h1 class="animate-in text-4xl md:text-6xl font-serif font-bold text-white mb-4" style="--delay: 0.1s;">
                         Commercial Grounds Management
                     </h1>
-                    <p class="animate-in text-lg md:text-xl text-slate-400 mb-8 max-w-2xl mx-auto" style="--delay: 0.2s;">
+                    <p class="animate-in text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto" style="--delay: 0.2s;">
                         Nashville, TN | Est. 1988
                     </p>
                     <div class="animate-in grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto" style="--delay: 0.3s;">
                         <div class="glass-card p-4 text-center tooltip" onclick="showModal('Est. Revenue', 'Based on 139 employees multiplied by an industry benchmark of $134K revenue per employee.')">
                             <h3 class="text-2xl md:text-3xl font-bold gradient-text" data-count="18.6" data-prefix="~$" data-suffix="M">~$0M</h3>
-                            <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">Est. Revenue</p>
+                            <p class="text-xs uppercase tracking-wider text-slate-400 mt-1">Est. Revenue</p>
                             <span class="tooltip-text">Detail: 139 emp x $134K</span>
                         </div>
                         <div class="glass-card p-4 text-center tooltip" onclick="showModal('Year Founded', 'The company has been operating for over three decades, establishing a long-standing brand and deep client relationships.')">
                             <h3 class="text-2xl md:text-3xl font-bold gradient-text" data-count="1988">0</h3>
-                            <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">Year Founded</p>
+                            <p class="text-xs uppercase tracking-wider text-slate-400 mt-1">Year Founded</p>
                             <span class="tooltip-text">Detail: 37+ yrs operating</span>
                         </div>
                         <div class="glass-card p-4 text-center tooltip" onclick="showModal('Employees', 'Headcount based on LinkedIn data as of 2025.')">
                             <h3 class="text-2xl md:text-3xl font-bold gradient-text" data-count="139">0</h3>
-                            <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">Employees</p>
+                            <p class="text-xs uppercase tracking-wider text-slate-400 mt-1">Employees</p>
                             <span class="tooltip-text">Detail: LinkedIn, 2025</span>
                         </div>
                         <div class="glass-card p-4 text-center tooltip" onclick="showModal('Geography', 'LSI operates 3 offices across Tennessee with regional reach throughout the Southeastern U.S.')">
                             <h3 class="text-2xl md:text-3xl font-bold gradient-text">SE U.S.</h3>
-                            <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">Geography</p>
+                            <p class="text-xs uppercase tracking-wider text-slate-400 mt-1">Geography</p>
                             <span class="tooltip-text">Detail: Nashville, TN HQ</span>
                         </div>
                     </div>
@@ -275,25 +275,25 @@
                     <div class="accordion-content">
                         <div class="grid lg:grid-cols-5 gap-12 items-center">
                             <div class="lg:col-span-3">
-                                <p class="text-lg text-slate-300 mb-8">
+                                <p class="text-lg text-slate-200 mb-8">
                                     Nashville, TN Commercial Grounds Management Firm specializing in recurring maintenance contracts and project-based landscape construction.
                                 </p>
                                 <div class="space-y-4">
                                     <div class="flex items-start gap-4">
                                         <i class="lucide lucide-check-circle text-brand-primary mt-1 flex-shrink-0"></i>
-                                        <p>Second-generation, family-operated commercial grounds management firm exclusively serving commercial and institutional clients since 1988.</p>
+                                        <p class="text-slate-300">Second-generation, family-operated commercial grounds management firm exclusively serving commercial and institutional clients since 1988.</p>
                                     </div>
                                     <div class="flex items-start gap-4">
                                         <i class="lucide lucide-check-circle text-brand-primary mt-1 flex-shrink-0"></i>
-                                        <p>Operates 3 offices across Tennessee with regional reach throughout the Southeastern U.S.</p>
+                                        <p class="text-slate-300">Operates 3 offices across Tennessee with regional reach throughout the Southeastern U.S.</p>
                                     </div>
                                     <div class="flex items-start gap-4">
                                         <i class="lucide lucide-check-circle text-brand-primary mt-1 flex-shrink-0"></i>
-                                        <p>Delivers a dual revenue stream of recurring maintenance contracts and project-based landscape construction.</p>
+                                        <p class="text-slate-300">Delivers a dual revenue stream of recurring maintenance contracts and project-based landscape construction.</p>
                                     </div>
                                     <div class="flex items-start gap-4">
                                         <i class="lucide lucide-check-circle text-brand-primary mt-1 flex-shrink-0"></i>
-                                        <p>Employs a team of 139 professionals dedicated to high-quality service and client satisfaction.</p>
+                                        <p class="text-slate-300">Employs a team of 139 professionals dedicated to high-quality service and client satisfaction.</p>
                                     </div>
                                 </div>
                             </div>
@@ -305,7 +305,7 @@
                                         </div>
                                         <div>
                                             <h3 class="font-semibold text-white">NALP Award Winner</h3>
-                                            <p class="text-sm">Recognized for industry excellence.</p>
+                                            <p class="text-sm text-slate-300">Recognized for industry excellence.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -317,7 +317,7 @@
         </section>
 
         <!-- Investment Highlights -->
-        <section id="highlights" class="scroll-mt-20 py-20 md:py-32 px-6 bg-dark-base/50" style="background-image: radial-gradient(circle at top left, rgba(110, 140, 67, 0.05), transparent 30%)">
+        <section id="highlights" class="scroll-mt-20 py-20 md:py-32 px-6 bg-dark-base/50" style="background-image: radial-gradient(circle at top left, rgba(110, 140, 67, 0.08), transparent 30%)">
             <div class="max-w-7xl mx-auto">
                 <div class="accordion-item active">
                     <div class="accordion-header cursor-pointer flex justify-between items-center mb-12">
@@ -329,7 +329,7 @@
                             <div class="glass-card p-6 cursor-pointer" onclick="showModal('Contractual, Recurring Revenue Base', 'Landscape maintenance is a non-discretionary expense for Commercial Real Estate (CRE) owners, leading to a stable, contractual, and recurring revenue base for LSI.')">
                                 <i class="lucide lucide-repeat text-brand-primary text-3xl mb-4"></i>
                                 <h3 class="font-semibold text-white text-lg mb-2">Contractual, Recurring Revenue Base</h3>
-                                <ul class="list-disc list-inside text-sm space-y-1">
+                                <ul class="list-disc list-inside text-sm space-y-1 text-slate-300">
                                     <li>Landscape maintenance is non-discretionary for CRE owners.</li>
                                     <li>Contractual, recurring revenue base.</li>
                                 </ul>
@@ -337,7 +337,7 @@
                             <div class="glass-card p-6 cursor-pointer" onclick="showModal('Attractive Roll-Up Opportunity', 'The landscaping market is highly fragmented, with the top 4 companies holding only 9.4% of the $167B market. LSI presents an ideal platform in the Southeast for a buy-and-build strategy.')">
                                 <i class="lucide lucide-merge text-brand-primary text-3xl mb-4"></i>
                                 <h3 class="font-semibold text-white text-lg mb-2">Attractive Roll-Up Opportunity in a Fragmented Market</h3>
-                                <ul class="list-disc list-inside text-sm space-y-1">
+                                <ul class="list-disc list-inside text-sm space-y-1 text-slate-300">
                                     <li>Top 4 hold only <span class="font-bold text-white">9.4%</span> of a <span class="font-bold text-white">$167B</span> market.</li>
                                     <li>LSI provides an ideal SE platform for buy-and-build.</li>
                                 </ul>
@@ -345,7 +345,7 @@
                             <div class="glass-card p-6 cursor-pointer" onclick="showModal('Long-Standing Brand', 'With 37 years of operation, LSI has built a strong brand and deep client relationships across 24 verticals. A \'Raving Fans\' culture drives high retention and referrals.')">
                                 <i class="lucide lucide-shield-check text-brand-primary text-3xl mb-4"></i>
                                 <h3 class="font-semibold text-white text-lg mb-2">Long-Standing Brand with Deep Client Relationships</h3>
-                                <ul class="list-disc list-inside text-sm space-y-1">
+                                <ul class="list-disc list-inside text-sm space-y-1 text-slate-300">
                                     <li><span class="font-bold text-white">37-Year</span> Brand & Relationships.</li>
                                     <li>Deep client relationships across 24 verticals.</li>
                                     <li>'Raving Fans' culture drives retention & referrals.</li>
@@ -354,7 +354,7 @@
                             <div class="glass-card p-6 cursor-pointer" onclick="showModal('Diversified Revenue Streams', 'LSI combines predictable, recurring grounds maintenance revenue with the growth potential of landscape construction projects, creating a balanced and resilient business model.')">
                                 <i class="lucide lucide-git-fork text-brand-primary text-3xl mb-4"></i>
                                 <h3 class="font-semibold text-white text-lg mb-2">Diversified and Complementary Revenue Streams</h3>
-                                <ul class="list-disc list-inside text-sm space-y-1">
+                                <ul class="list-disc list-inside text-sm space-y-1 text-slate-300">
                                     <li>Recurring grounds maintenance + landscape construction.</li>
                                     <li>Predictable + growth in one platform.</li>
                                 </ul>
@@ -362,14 +362,14 @@
                             <div class="glass-card p-6 cursor-pointer" onclick="showModal('Alignment with ESG Mandates', 'LSI\'s services, including water management, green initiatives, and native planting, are strongly aligned with the growing Environmental, Social, and Governance (ESG) mandates required by CRE tenants.')">
                                 <i class="lucide lucide-leaf text-brand-primary text-3xl mb-4"></i>
                                 <h3 class="font-semibold text-white text-lg mb-2">Strong Alignment with Growing ESG Mandates</h3>
-                                <ul class="list-disc list-inside text-sm space-y-1">
+                                <ul class="list-disc list-inside text-sm space-y-1 text-slate-300">
                                     <li>Water management, green initiatives, native planting aligned with CRE tenant ESG mandates.</li>
                                 </ul>
                             </div>
                             <div class="glass-card p-6 cursor-pointer" onclick="showModal('Scalable M&A Platform', 'LSI has established systems, including a client portal, defined processes, and a multi-office model, making it ready for the seamless integration of bolt-on acquisitions.')">
                                 <i class="lucide lucide-scaling text-brand-primary text-3xl mb-4"></i>
                                 <h3 class="font-semibold text-white text-lg mb-2">Scalable Platform Primed for M&A Integration</h3>
-                                <ul class="list-disc list-inside text-sm space-y-1">
+                                <ul class="list-disc list-inside text-sm space-y-1 text-slate-300">
                                     <li>Client portal, established processes, multi-office model ready for bolt-on M&A integration.</li>
                                 </ul>
                             </div>
@@ -390,25 +390,25 @@
                     <div class="accordion-content">
                         <div class="grid lg:grid-cols-2 gap-12 items-center">
                             <div>
-                                <p class="text-lg text-slate-300 mb-8">
+                                <p class="text-lg text-slate-200 mb-8">
                                     The U.S. Landscaping Services Market (NAICS 561730) is a large, fragmented, and growing industry, presenting a significant opportunity for consolidation and expansion.
                                 </p>
                                 <div class="grid grid-cols-2 gap-6">
                                     <div class="glass-card p-4 text-center cursor-pointer" onclick="showModal('U.S. Industry Revenue (2024)', 'Source: Kentley Insights, RealGreen, U.S. Census Bureau')">
                                         <h3 class="text-2xl font-bold gradient-text">$167.4B</h3>
-                                        <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">Industry Revenue</p>
+                                        <p class="text-xs uppercase tracking-wider text-slate-400 mt-1">Industry Revenue</p>
                                     </div>
                                     <div class="glass-card p-4 text-center cursor-pointer" onclick="showModal('5-Year Revenue CAGR (2019-2024)', 'Source: Kentley Insights, RealGreen, U.S. Census Bureau')">
                                         <h3 class="text-2xl font-bold gradient-text">7.1%</h3>
-                                        <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">5-Year CAGR</p>
+                                        <p class="text-xs uppercase tracking-wider text-slate-400 mt-1">5-Year CAGR</p>
                                     </div>
                                     <div class="glass-card p-4 text-center cursor-pointer" onclick="showModal('Active U.S. Companies', 'Source: Kentley Insights, RealGreen, U.S. Census Bureau')">
                                         <h3 class="text-2xl font-bold gradient-text">150K+</h3>
-                                        <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">U.S. Companies</p>
+                                        <p class="text-xs uppercase tracking-wider text-slate-400 mt-1">U.S. Companies</p>
                                     </div>
                                     <div class="glass-card p-4 text-center cursor-pointer" onclick="showModal('Industry Employees', 'Source: Kentley Insights, RealGreen, U.S. Census Bureau')">
                                         <h3 class="text-2xl font-bold gradient-text">1M+</h3>
-                                        <p class="text-xs uppercase tracking-wider text-slate-500 mt-1">Industry Employees</p>
+                                        <p class="text-xs uppercase tracking-wider text-slate-400 mt-1">Industry Employees</p>
                                     </div>
                                 </div>
                             </div>
@@ -423,7 +423,7 @@
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="scroll-mt-20 py-20 md:py-32 px-6 bg-dark-base/50" style="background-image: radial-gradient(circle at top right, rgba(201, 164, 67, 0.05), transparent 30%)">
+        <section id="services" class="scroll-mt-20 py-20 md:py-32 px-6 bg-dark-base/50" style="background-image: radial-gradient(circle at top right, rgba(201, 164, 67, 0.08), transparent 30%)">
             <div class="max-w-7xl mx-auto">
                 <div class="accordion-item active">
                     <div class="accordion-header cursor-pointer flex justify-between items-center mb-12">
@@ -439,7 +439,7 @@
                                     </div>
                                     <h3 class="text-2xl font-semibold text-white font-serif">Grounds Services</h3>
                                 </div>
-                                <p>Recurring maintenance contracts including landscape management & mowing, tree care & arborist services, seasonal color programs, and irrigation & water management.</p>
+                                <p class="text-slate-300">Recurring maintenance contracts including landscape management & mowing, tree care & arborist services, seasonal color programs, and irrigation & water management.</p>
                             </div>
                             <div class="glass-card p-8 cursor-pointer" onclick="showModal('Landscape Construction', 'Project-based revenue including landscape development, hardscape construction, irrigation installation, and drainage & erosion control.')">
                                 <div class="flex items-center gap-4 mb-4">
@@ -448,7 +448,7 @@
                                     </div>
                                     <h3 class="text-2xl font-semibold text-white font-serif">Landscape Construction</h3>
                                 </div>
-                                <p>Project-based revenue including landscape development, hardscape construction, irrigation installation, and drainage & erosion control.</p>
+                                <p class="text-slate-300">Project-based revenue including landscape development, hardscape construction, irrigation installation, and drainage & erosion control.</p>
                             </div>
                         </div>
                     </div>
@@ -469,17 +469,17 @@
                             <div class="glass-card p-6 text-center cursor-pointer" onclick="showModal('Service Guarantee', 'LSI stands behind its work with a powerful guarantee: \'We\'ll do as We Say, or You Don\'t Pay.®\' This commitment builds trust and ensures client satisfaction.')">
                                 <i class="lucide lucide-shield-check text-brand-secondary text-4xl mx-auto mb-4"></i>
                                 <h3 class="font-semibold text-white text-lg mb-2">Service Guarantee</h3>
-                                <p class="text-sm">"We'll do as We Say, or You Don't Pay.®"</p>
+                                <p class="text-sm text-slate-300">"We'll do as We Say, or You Don't Pay.®"</p>
                             </div>
                             <div class="glass-card p-6 text-center cursor-pointer" onclick="showModal('100% Commercial Clientele', 'LSI maintains an exclusive focus on commercial and institutional clients. This specialization allows for tailored services, deep understanding of client needs, and operational efficiencies.')">
                                 <i class="lucide lucide-building-2 text-brand-secondary text-4xl mx-auto mb-4"></i>
                                 <h3 class="font-semibold text-white text-lg mb-2">100% Commercial Clientele</h3>
-                                <p class="text-sm">Exclusive focus on commercial and institutional clients.</p>
+                                <p class="text-sm text-slate-300">Exclusive focus on commercial and institutional clients.</p>
                             </div>
                             <div class="glass-card p-6 text-center cursor-pointer" onclick="showModal('Dual Revenue Streams', 'The business model combines the stability of predictable, recurring maintenance contracts with the high-growth potential of project-based construction work, creating a resilient and scalable platform.')">
                                 <i class="lucide lucide-git-compare text-brand-secondary text-4xl mx-auto mb-4"></i>
                                 <h3 class="font-semibold text-white text-lg mb-2">Dual Revenue Streams</h3>
-                                <p class="text-sm">Combines predictable recurring maintenance with high-growth project work.</p>
+                                <p class="text-sm text-slate-300">Combines predictable recurring maintenance with high-growth project work.</p>
                             </div>
                         </div>
                     </div>
@@ -488,7 +488,7 @@
         </section>
 
         <!-- Financials Section -->
-        <section id="financials" class="scroll-mt-20 py-20 md:py-32 px-6 bg-dark-base/50" style="background-image: radial-gradient(circle at bottom left, rgba(110, 140, 67, 0.05), transparent 30%)">
+        <section id="financials" class="scroll-mt-20 py-20 md:py-32 px-6 bg-dark-base/50" style="background-image: radial-gradient(circle at bottom left, rgba(110, 140, 67, 0.08), transparent 30%)">
             <div class="max-w-7xl mx-auto">
                 <div class="accordion-item active">
                     <div class="accordion-header cursor-pointer flex justify-between items-center mb-12">
@@ -510,7 +510,7 @@
                             <h3 class="text-xl font-semibold text-white mb-4">LSI Revenue Estimate — Employee-Based Methodology</h3>
                             <div class="glass-card overflow-hidden">
                                 <table class="w-full text-left text-sm">
-                                    <thead class="bg-white/5">
+                                    <thead class="bg-white/10">
                                         <tr>
                                             <th class="p-4 font-semibold text-white">Metric</th>
                                             <th class="p-4 font-semibold text-white">Input / Source</th>
@@ -518,30 +518,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="border-t border-dark-border hover:bg-white/5 transition-colors cursor-pointer" onclick="showModal('Headcount', 'Source: LinkedIn profile (2025)')">
-                                            <td class="p-4">Headcount</td>
-                                            <td class="p-4">LinkedIn profile (2025)</td>
-                                            <td class="p-4 text-right">139 employees</td>
+                                        <tr class="border-t border-dark-border hover:bg-white/10 transition-colors cursor-pointer" onclick="showModal('Headcount', 'Source: LinkedIn profile (2025)')">
+                                            <td class="p-4 text-slate-300">Headcount</td>
+                                            <td class="p-4 text-slate-300">LinkedIn profile (2025)</td>
+                                            <td class="p-4 text-right text-slate-300">139 employees</td>
                                         </tr>
-                                        <tr class="border-t border-dark-border hover:bg-white/5 transition-colors cursor-pointer" onclick="showModal('Revenue / Employee', 'Source: NAICS 561730 - YKS source')">
-                                            <td class="p-4">Revenue / Employee</td>
-                                            <td class="p-4">NAICS 561730 - YKS source</td>
-                                            <td class="p-4 text-right">$134,000</td>
+                                        <tr class="border-t border-dark-border hover:bg-white/10 transition-colors cursor-pointer" onclick="showModal('Revenue / Employee', 'Source: NAICS 561730 - YKS source')">
+                                            <td class="p-4 text-slate-300">Revenue / Employee</td>
+                                            <td class="p-4 text-slate-300">NAICS 561730 - YKS source</td>
+                                            <td class="p-4 text-right text-slate-300">$134,000</td>
                                         </tr>
-                                        <tr class="border-t border-dark-border hover:bg-white/5 transition-colors cursor-pointer" onclick="showModal('Implied Revenue', 'Calculation: 139 employees x $134,000 per employee')">
-                                            <td class="p-4">Implied Revenue</td>
-                                            <td class="p-4">139 x $134,000</td>
+                                        <tr class="border-t border-dark-border hover:bg-white/10 transition-colors cursor-pointer" onclick="showModal('Implied Revenue', 'Calculation: 139 employees x $134,000 per employee')">
+                                            <td class="p-4 text-slate-300">Implied Revenue</td>
+                                            <td class="p-4 text-slate-300">139 x $134,000</td>
                                             <td class="p-4 text-right font-semibold text-white">$18,626,000</td>
                                         </tr>
-                                        <tr class="border-t border-dark-border hover:bg-white/5 transition-colors cursor-pointer" onclick="showModal('Estimated Revenue', 'Source: Rounded — YKS estimate')">
+                                        <tr class="border-t border-dark-border hover:bg-white/10 transition-colors cursor-pointer" onclick="showModal('Estimated Revenue', 'Source: Rounded — YKS estimate')">
                                             <td class="p-4 font-bold text-white">Estimated Revenue</td>
-                                            <td class="p-4">Rounded — YKS estimate</td>
+                                            <td class="p-4 text-slate-300">Rounded — YKS estimate</td>
                                             <td class="p-4 text-right font-bold text-white">~$18.6M</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <p class="text-xs mt-4 text-slate-500">Note: Industry benchmark (Kentley Insights, 2024): $164K/emp. YKS applies $134K source rate. Estimates are indicative only — not audited financials.</p>
+                            <p class="text-xs mt-4 text-slate-400">Note: Industry benchmark (Kentley Insights, 2024): $164K/emp. YKS applies $134K source rate. Estimates are indicative only — not audited financials.</p>
                         </div>
                     </div>
                 </div>
@@ -558,30 +558,30 @@
                     </div>
                     <div class="accordion-content">
                         <div class="columns-2 md:columns-3 lg:columns-4 gap-4">
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Commercial Offices', 'Serving office parks and corporate buildings.')">Commercial Offices</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Homeowners Assoc.', 'Managing grounds for HOAs.')">Homeowners Assoc.</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Multifamily / Condo', 'Apartment complexes and condominiums.')">Multifamily / Condo</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Healthcare Systems', 'Hospitals and medical facilities.')">Healthcare Systems</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Retail Centers', 'Shopping malls and retail plazas.')">Retail Centers</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Corporate Campuses', 'Large-scale corporate headquarters.')">Corporate Campuses</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Industrial / Distrib.', 'Warehouses and distribution centers.')">Industrial / Distrib.</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Higher Education', 'Colleges and universities.')">Higher Education</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('School Systems', 'Public and private K-12 schools.')">School Systems</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Municipalities', 'City parks and government buildings.')">Municipalities</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Military Bases', 'Grounds management for military installations.')">Military Bases</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Bank Portfolios', 'Branch locations for banking institutions.')">Bank Portfolios</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Big Box Chains', 'Large retail chain stores.')">Big Box Chains</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Senior Living', 'Assisted living and retirement communities.')">Senior Living</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Storage Facilities', 'Self-storage property grounds.')">Storage Facilities</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('C-Store / Fuel', 'Convenience stores and gas stations.')">C-Store / Fuel</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('REITS', 'Properties managed by Real Estate Investment Trusts.')">REITS</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Building Owners', 'Direct contracts with property owners.')">Building Owners</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Property Managers', 'Working with third-party property management firms.')">Property Managers</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Facility Managers', 'Contracts with in-house facility management teams.')">Facility Managers</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('General Contractors', 'New construction landscaping projects.')">General Contractors</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Developers', 'Working with real estate developers.')">Developers</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Landscape Architects', 'Executing designs from landscape architecture firms.')">Landscape Architects</div>
-                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer" onclick="showModal('Restaurant & Hospitality', 'Hotels, resorts, and restaurants.')">Restaurant & Hospitality</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Commercial Offices', 'Serving office parks and corporate buildings.')">Commercial Offices</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Homeowners Assoc.', 'Managing grounds for HOAs.')">Homeowners Assoc.</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Multifamily / Condo', 'Apartment complexes and condominiums.')">Multifamily / Condo</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Healthcare Systems', 'Hospitals and medical facilities.')">Healthcare Systems</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Retail Centers', 'Shopping malls and retail plazas.')">Retail Centers</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Corporate Campuses', 'Large-scale corporate headquarters.')">Corporate Campuses</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Industrial / Distrib.', 'Warehouses and distribution centers.')">Industrial / Distrib.</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Higher Education', 'Colleges and universities.')">Higher Education</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('School Systems', 'Public and private K-12 schools.')">School Systems</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Municipalities', 'City parks and government buildings.')">Municipalities</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Military Bases', 'Grounds management for military installations.')">Military Bases</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Bank Portfolios', 'Branch locations for banking institutions.')">Bank Portfolios</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Big Box Chains', 'Large retail chain stores.')">Big Box Chains</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Senior Living', 'Assisted living and retirement communities.')">Senior Living</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Storage Facilities', 'Self-storage property grounds.')">Storage Facilities</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('C-Store / Fuel', 'Convenience stores and gas stations.')">C-Store / Fuel</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('REITS', 'Properties managed by Real Estate Investment Trusts.')">REITS</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Building Owners', 'Direct contracts with property owners.')">Building Owners</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Property Managers', 'Working with third-party property management firms.')">Property Managers</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Facility Managers', 'Contracts with in-house facility management teams.')">Facility Managers</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('General Contractors', 'New construction landscaping projects.')">General Contractors</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Developers', 'Working with real estate developers.')">Developers</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Landscape Architects', 'Executing designs from landscape architecture firms.')">Landscape Architects</div>
+                            <div class="glass-card p-3 mb-4 text-center text-sm cursor-pointer text-slate-300" onclick="showModal('Restaurant & Hospitality', 'Hotels, resorts, and restaurants.')">Restaurant & Hospitality</div>
                         </div>
                     </div>
                 </div>
@@ -598,14 +598,14 @@
                     </div>
                     <div class="accordion-content">
                         <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-4">
-                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('BOMA', 'Building Owners and Managers Association')">BOMA</span>
-                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('NAIOP', 'National Association for Industrial and Office Parks')">NAIOP</span>
-                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('IFMA', 'International Facility Management Association')">IFMA</span>
-                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('IREM', 'Institute of Real Estate Management')">IREM</span>
-                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('NALP', 'National Association of Landscape Professionals')">NALP</span>
-                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('SIMA', 'Snow & Ice Management Association')">SIMA</span>
-                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('CAI', 'Community Associations Institute')">CAI</span>
-                            <span class="font-semibold text-slate-300 cursor-pointer hover:text-white" onclick="showModal('Irrigation Association', 'Irrigation Association')">Irrigation Association</span>
+                            <span class="font-semibold text-slate-200 cursor-pointer hover:text-white" onclick="showModal('BOMA', 'Building Owners and Managers Association')">BOMA</span>
+                            <span class="font-semibold text-slate-200 cursor-pointer hover:text-white" onclick="showModal('NAIOP', 'National Association for Industrial and Office Parks')">NAIOP</span>
+                            <span class="font-semibold text-slate-200 cursor-pointer hover:text-white" onclick="showModal('IFMA', 'International Facility Management Association')">IFMA</span>
+                            <span class="font-semibold text-slate-200 cursor-pointer hover:text-white" onclick="showModal('IREM', 'Institute of Real Estate Management')">IREM</span>
+                            <span class="font-semibold text-slate-200 cursor-pointer hover:text-white" onclick="showModal('NALP', 'National Association of Landscape Professionals')">NALP</span>
+                            <span class="font-semibold text-slate-200 cursor-pointer hover:text-white" onclick="showModal('SIMA', 'Snow & Ice Management Association')">SIMA</span>
+                            <span class="font-semibold text-slate-200 cursor-pointer hover:text-white" onclick="showModal('CAI', 'Community Associations Institute')">CAI</span>
+                            <span class="font-semibold text-slate-200 cursor-pointer hover:text-white" onclick="showModal('Irrigation Association', 'Irrigation Association')">Irrigation Association</span>
                         </div>
                     </div>
                 </div>
@@ -615,7 +615,7 @@
 
     <!-- Footer -->
     <footer class="bg-dark-base border-t border-dark-border py-12 px-6">
-        <div class="max-w-7xl mx-auto text-center text-slate-500">
+        <div class="max-w-7xl mx-auto text-center text-slate-400">
             <div class="flex justify-center items-center gap-3 mb-4">
                 <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#6E8C43" rx="12"/><text x="50" y="55" font-family="Inter, sans-serif" font-size="40" fill="#FFFFFF" text-anchor="middle" font-weight="bold">LSI</text></svg>
                 <h3 class="text-xl font-semibold text-white">Landscape Services, Inc.</h3>
@@ -644,7 +644,7 @@
             Chart.register(ChartDataLabels);
 
             // --- CHART.JS DARK THEME DEFAULTS ---
-            Chart.defaults.color = '#94a3b8';
+            Chart.defaults.color = '#CBD5E1';
             Chart.defaults.font.family = "'Inter', sans-serif";
             Chart.defaults.plugins.legend.position = 'bottom';
             Chart.defaults.plugins.tooltip.backgroundColor = '#1e293b';
@@ -684,7 +684,7 @@
                     this.size = Math.random() * 3 + 1;
                     this.speedX = Math.random() * 1 - 0.5;
                     this.speedY = Math.random() * 1 + 0.5;
-                    this.color = Math.random() > 0.5 ? 'rgba(110, 140, 67, 0.3)' : 'rgba(201, 164, 67, 0.2)';
+                    this.color = Math.random() > 0.5 ? 'rgba(110, 140, 67, 0.4)' : 'rgba(201, 164, 67, 0.3)';
                 }
                 update() {
                     this.x += this.speedX;
@@ -787,7 +787,7 @@
                                 label: 'Market Share',
                                 data: [45, 25, 15, 10, 5],
                                 backgroundColor: ['#6E8C43', '#C9A443', '#8aab61', '#e0c277', '#566e34'],
-                                borderColor: '#080C14',
+                                borderColor: '#0F1419',
                                 borderWidth: 3,
                             }]
                         },
@@ -837,7 +837,7 @@
                             scales: {
                                 y: {
                                     beginAtZero: true,
-                                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                    grid: { color: 'rgba(255, 255, 255, 0.15)' },
                                     ticks: { callback: value => '$' + value + 'M' }
                                 },
                                 x: { grid: { display: false } }
@@ -864,7 +864,7 @@
                                 label: 'Recurring Revenue ($M)',
                                 data: [7.5, 8.9, 9.9, 11.8, 13.0],
                                 fill: true,
-                                backgroundColor: 'rgba(110, 140, 67, 0.2)',
+                                backgroundColor: 'rgba(110, 140, 67, 0.3)',
                                 borderColor: '#6E8C43',
                                 tension: 0.4,
                                 pointBackgroundColor: '#6E8C43',
@@ -876,7 +876,7 @@
                             scales: {
                                 y: {
                                     beginAtZero: false,
-                                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                    grid: { color: 'rgba(255, 255, 255, 0.15)' },
                                     ticks: { callback: value => '$' + value + 'M' }
                                 },
                                 x: { grid: { display: false } }
