@@ -720,13 +720,9 @@
             animateParticles();
 
             // --- SCROLL ANIMATIONS ---
-            const animateInElements = document.querySelectorAll('.animate-in');
-            animateInElements.forEach(el => {
+            // Animate hero elements on page load
+            document.querySelectorAll('#hero .animate-in').forEach(el => {
                 gsap.from(el, {
-                    scrollTrigger: {
-                        trigger: el,
-                        start: 'top 90%',
-                    },
                     opacity: 0,
                     y: 20,
                     duration: 0.6,
@@ -735,7 +731,8 @@
                 });
             });
             
-            gsap.utils.toArray("section").forEach(section => {
+            // Animate elements in other sections on scroll
+            gsap.utils.toArray("section:not(#hero)").forEach(section => {
                 const elems = section.querySelectorAll(".glass-card, table, .columns-2 > div, .flex-wrap > span, canvas");
                 if (elems.length > 0) {
                     gsap.from(elems, {
